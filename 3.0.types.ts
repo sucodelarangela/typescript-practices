@@ -60,3 +60,9 @@ console.log(list[2]) // string 2
 // Também é possível trabalhar com readonly
 let otherList: readonly [string, number] = ['Bill Gates', 1]
 otherList.push('Steve', 2) // error
+
+// Any: aceita qualquer tipo.
+// Apesar de termos o Union, podemos usar o Any quando temos uma integração com API de terceiros e não sabemos que tipo de valores vamos receber
+let variavel: any = 'Variável'
+variavel = 34
+variavel = true
