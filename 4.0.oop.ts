@@ -1,5 +1,5 @@
 // Como boa prática, o objeto conta ficaria dentro de um arquivo com o mesmo nome dela, por exemplo "conta.ts"
-class Conta {
+abstract class Conta {
     // a) atributos: armazenam as informações que descrevem o objeto (como variáveis)
     private _numeroDaConta: number;
     titular: string;
@@ -83,3 +83,6 @@ console.log(pessoaFisica.numeroDaConta) // sem o getter, retorn undefined
 
 // GETTER: método utilizado quando queremos acessar o valor de uma propriedade. Exemplo na class Conta (d)
 // SETTER: método utilizado quando queremos alterar o valor de uma propriedade
+
+// Classes abstratas: não permitem realizar qualquer tipo de instância, elas são usadas como modelos pra outras classes (concretas). Basta adicionar a palavra chave 'abstract' antes da classe.
+const novaConta = new Conta() // error Cannot create an instance of an abstract class.
