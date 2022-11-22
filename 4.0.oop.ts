@@ -1,7 +1,7 @@
 // Como boa prática, o objeto conta ficaria dentro de um arquivo com o mesmo nome dela, por exemplo "conta.ts"
 abstract class Conta {
     // a) atributos: armazenam as informações que descrevem o objeto (como variáveis)
-    private _numeroDaConta: number;
+    private readonly _numeroDaConta: number; // readonly impede alterações
     titular: string;
     private _saldo: number; // private não permite que o atributo seja acessado fora da classe
 
