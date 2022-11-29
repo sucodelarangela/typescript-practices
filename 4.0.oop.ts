@@ -7,21 +7,21 @@ abstract class Conta {
 
     // d) Getter
     get numeroDaConta(): number {
-        return this._numeroDaConta
+        return this._numeroDaConta;
     }
 
     // c) Métodos: servem para identificar e executar operações que a classe fornecerá (manipular atributos)
     // protected faz com que os métodos sejam acessados somente pela própria classe Conta e pelas classes que a herdarem
     protected consultaSaldo(): number {
-        return this._saldo
+        return this._saldo;
     }
 
     protected adicionaSaldo(valor: number): void {
-        this._saldo += valor
+        this._saldo += valor;
     }
 
     protected sacarDoSaldo(valor: number): void {
-        this._saldo -= valor
+        this._saldo -= valor;
     }
 
     // b) construtor: espécie de função para acessar os atributos
@@ -33,51 +33,59 @@ abstract class Conta {
 }
 
 // Para criar um objeto a partir da nossa classe, precisamos instancia-la através da palavra reservada NEW
-const primeiraConta = new Conta("Thiago Adriano", 1000)
-primeiraConta.adicionaSaldo(750) // error por causa do protected
+const primeiraConta = new Conta("Thiago Adriano", 1000); // error por ser classe abstrata
+primeiraConta.adicionaSaldo(750); // error por causa do protected
 
 // Herança: permite reutilizar código sem a necessidade de duplica-lo (palavra chave EXTENDS)
-class contaPF extends Conta {
+class ContaPF extends Conta implements Tributavel {
     cpf: number;
 
     consultar(): string {
-        return `Saldo atual: ${this.consultaSaldo()}`
+        return `Saldo atual: ${this.consultaSaldo()}`;
     }
 
     sacar(valor: number) {
         if (this.consultaSaldo() > 0 && valor <= this.consultaSaldo()) {
-            this.sacarDoSaldo(valor)
+            this.sacarDoSaldo(valor);
         }
     }
 
+    CalculaTributo(): number {
+        // implementação
+    }
+
     constructor(cpf: number, titular: string, saldo: number) {
-        super(titular, saldo)
-        this.cpf = cpf
+        super(titular, saldo);
+        this.cpf = cpf;
     }
 }
 
-class contaPJ extends Conta {
+class ContaPJ extends Conta implements Tributavel {
     cnpj: number;
 
     consultar(): string {
-        return `Saldo atual: ${this.consultaSaldo()}`
+        return `Saldo atual: ${this.consultaSaldo()}`;
     }
 
     // na conta PJ o cliente pode ficar negativo
     sacar(valor: number) {
-        this.sacarDoSaldo(valor)
+        this.sacarDoSaldo(valor);
+    }
+
+    CalculaTributo(): number {
+        // implementação
     }
 
     constructor(cnpj: number, titular: string, saldo: number) {
-        super(titular, saldo)
-        this.cnpj = cnpj
+        super(titular, saldo);
+        this.cnpj = cnpj;
     }
 }
 
-const pessoaFisica = new contaPF(12345678900, "Thiago Adriano", 1000)
-const pessoaJuridica = new contaPJ(12345678000177, "Thiago Adriano", 1000)
+const pessoaFisica = new ContaPF(12345678900, "Thiago Adriano", 1000);
+const pessoaJuridica = new ContaPJ(12345678000177, "Thiago Adriano", 1000);
 
-console.log(pessoaFisica.numeroDaConta) // sem o getter, retorn undefined
+console.log(pessoaFisica.numeroDaConta); // sem o getter, retorn undefined
 
 // Melhores práticas implementadas: número da conta gerado pela classe em vez de ser passado, método sacar com validação de saldo, métodos da classe pai protegidos para serem acessados somente nas classes filhas
 
@@ -85,4 +93,12 @@ console.log(pessoaFisica.numeroDaConta) // sem o getter, retorn undefined
 // SETTER: método utilizado quando queremos alterar o valor de uma propriedade
 
 // Classes abstratas: não permitem realizar qualquer tipo de instância, elas são usadas como modelos pra outras classes (concretas). Basta adicionar a palavra chave 'abstract' antes da classe.
-const novaConta = new Conta() // error Cannot create an instance of an abstract class.
+const novaConta = new Conta(); // error Cannot create an instance of an abstract class.
+
+// IMPLEMENTANDO INTERFACES
+// Interfaces funcionam como um "contrato" que obriga a classe a definir todos os seus métodos e propriedades
+interface Tributavel {
+    CalculaTributo(): number;
+}
+
+// Nas classes ContaPJ e ContaPF, implementamos a interface com a palavra chave 'implements'
