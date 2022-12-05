@@ -12,8 +12,9 @@ abstract class Conta {
 
     // c) Métodos: servem para identificar e executar operações que a classe fornecerá (manipular atributos)
     // protected faz com que os métodos sejam acessados somente pela própria classe Conta e pelas classes que a herdarem
-    protected consultaSaldo(): number {
-        return this._saldo;
+    @analisaSaldo
+    protected consultaSaldo(): string {
+        return `O seu saldo atual é: ${this._saldo}`;
     }
 
     protected adicionaSaldo(valor: number): void {
@@ -102,3 +103,9 @@ interface Tributavel {
 }
 
 // Nas classes ContaPJ e ContaPF, implementamos a interface com a palavra chave 'implements'
+
+// DECORATORS
+function analisaSaldo(target: any, key: any, descriptor: any) {
+    // implementação
+    // decorator na classe Conta
+}
