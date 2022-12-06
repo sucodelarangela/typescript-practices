@@ -2,6 +2,7 @@
 abstract class Conta {
     // a) atributos: armazenam as informações que descrevem o objeto (como variáveis)
     private readonly _numeroDaConta: number; // readonly impede alterações
+    @validaTitular
     titular: string;
     private _saldo: number; // private não permite que o atributo seja acessado fora da classe
 
@@ -17,8 +18,8 @@ abstract class Conta {
         return `O seu saldo atual é: ${this._saldo}`;
     }
 
-    protected adicionaSaldo(valor: number): void {
-        this._saldo += valor;
+    protected adicionaSaldo(@saldo() saldo: number): void {
+        this._saldo += saldo;
     }
 
     protected sacarDoSaldo(valor: number): void {
@@ -108,4 +109,20 @@ interface Tributavel {
 function analisaSaldo(target: any, key: any, descriptor: any) {
     // implementação
     // decorator na classe Conta
+}
+
+function validaTitular(target: any, propertyKey: any) {
+    // implementação
+}
+
+function saldo() {
+    return (
+        target: any,
+        propertyKey: number,
+        parameterIndex: number
+    ) => {
+        console.log('target', target); // target Conta {}
+        console.log('property key', propertyKey); // property key adicionaSaldo
+        console.log('parameter index', parameterIndex); // parameter index 0
+    };
 }
