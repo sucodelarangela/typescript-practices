@@ -2,7 +2,6 @@
 abstract class Conta {
     // a) atributos: armazenam as informações que descrevem o objeto (como variáveis)
     private readonly _numeroDaConta: number; // readonly impede alterações
-    @validaTitular
     titular: string;
     private _saldo: number; // private não permite que o atributo seja acessado fora da classe
 
@@ -13,9 +12,9 @@ abstract class Conta {
 
     // c) Métodos: servem para identificar e executar operações que a classe fornecerá (manipular atributos)
     // protected faz com que os métodos sejam acessados somente pela própria classe Conta e pelas classes que a herdarem
-    @analisaSaldo
-    protected consultaSaldo(): string {
-        return `O seu saldo atual é: ${this._saldo}`;
+    protected consultaSaldo(): number {
+        return this._saldo;
+
     }
 
     protected adicionaSaldo(@saldo() saldo: number): void {
@@ -24,7 +23,7 @@ abstract class Conta {
 
     protected sacarDoSaldo(valor: number): void {
         this._saldo -= valor;
-    }
+    };
 
     // b) construtor: espécie de função para acessar os atributos
     constructor(titular: string, saldo: number) {
@@ -104,25 +103,3 @@ interface Tributavel {
 }
 
 // Nas classes ContaPJ e ContaPF, implementamos a interface com a palavra chave 'implements'
-
-// DECORATORS
-function analisaSaldo(target: any, key: any, descriptor: any) {
-    // implementação
-    // decorator na classe Conta
-}
-
-function validaTitular(target: any, propertyKey: any) {
-    // implementação
-}
-
-function saldo() {
-    return (
-        target: any,
-        propertyKey: number,
-        parameterIndex: number
-    ) => {
-        console.log('target', target); // target Conta {}
-        console.log('property key', propertyKey); // property key adicionaSaldo
-        console.log('parameter index', parameterIndex); // parameter index 0
-    };
-}
