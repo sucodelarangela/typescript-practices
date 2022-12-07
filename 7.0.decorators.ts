@@ -3,7 +3,8 @@
 // target: método estático ou function construtora
 // propertyKey: membro da instância que será usada no target
 // descriptor: método Object.getOwnPropertyDescriptor(), que retorna um descritor de propriedades para uma outra propriedade
-
+// Decorators de propriedade recebe target e propertyKey. Target é o protótipo da classe que está sendo aplicado o decorator, key é o nome da propriedade.
+// Decorator de parâmetro deve ser declarado antes da declaração de um parâmetro e recebe target, propertyKey e parameterIndex (posição de um parâmetro na função)
 // método decorador
 function analisaSaldo(target: any, key: any, descriptor: any) {
   // implementação
@@ -25,6 +26,12 @@ function saldo() {
   };
 }
 
+// class decorator: devem ser declarados antes da declaração da própria classe
+function log(ctor: any) {
+  console.log(ctor);
+}
+
+@log
 class Account {
   accountNumber: number;
   @validaTitular
@@ -47,5 +54,13 @@ class Account {
   }
 }
 
-// Decorators de propriedade recebe target e propertyKey. Target é o protótipo da classe que está sendo aplicado o decorator, key é o nome da propriedade.
-// Decorator de parâmetro deve ser declarado antes da declaração de um parâmetro e recebe target, propertyKey e parameterIndex (posição de um parâmetro na função)
+// Decorator Factory: quando precisamos fazer uma interação entre uma classe target e um decorator. A sintaxe é a mesma de um decorator de classe, mas recebe um valor em vez de um parâmetro.
+// Passando para o decorator analisaConta que a classe que o está implementando é do tipo PJ
+function analisaConta(tipoConta: any) {
+  return (_target: any) => {
+    console.log(`${tipoConta} - ${_target}`); // PJ - class Account1
+  };
+}
+
+@analisaConta('PJ')
+class Account1 { }
