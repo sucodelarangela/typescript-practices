@@ -31,7 +31,22 @@ function log(ctor: any) {
   console.log(ctor);
 }
 
+// Decorator Factory: quando precisamos fazer uma interação entre uma classe target e um decorator. A sintaxe é a mesma de um decorator de classe, mas recebe um valor em vez de um parâmetro.
+// Passando para o decorator analisaConta que a classe que o está implementando é do tipo PJ
+function analisaConta(tipoConta: any) {
+  return (_target: any) => {
+    console.log(`${tipoConta} - ${_target}`); // PJ - class Account1
+  };
+}
+
+function validaRegra(ctor: any) {
+  // implementação
+}
+
+// TypeScript permite implementar mais de um decorator em uma classe:
 @log
+@validaRegra
+@analisaConta('PJ')
 class Account {
   accountNumber: number;
   @validaTitular
@@ -53,14 +68,3 @@ class Account {
     return `O seu saldo atual é ${this.balance}`;
   }
 }
-
-// Decorator Factory: quando precisamos fazer uma interação entre uma classe target e um decorator. A sintaxe é a mesma de um decorator de classe, mas recebe um valor em vez de um parâmetro.
-// Passando para o decorator analisaConta que a classe que o está implementando é do tipo PJ
-function analisaConta(tipoConta: any) {
-  return (_target: any) => {
-    console.log(`${tipoConta} - ${_target}`); // PJ - class Account1
-  };
-}
-
-@analisaConta('PJ')
-class Account1 { }
