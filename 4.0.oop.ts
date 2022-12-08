@@ -92,16 +92,23 @@ namespace Banco {
     }
 }
 
+// namespaces aninhados
 namespace Banco {
-    export class ContaSalario extends Conta { }
+    export namespace Investimento {
+        export class ContaSalario extends Conta { }
+    }
 }
 
 namespace Banco {
-    export class ContaInvestimento extends Conta { }
+    export namespace Investimento {
+        export class ContaInvestimento extends Conta { }
+    }
 }
 
 const pessoaFisica = new Banco.ContaPF(12345678900, "Thiago Adriano", 1000);
 const pessoaJuridica = new Banco.ContaPJ(12345678000177, "Thiago Adriano", 1000);
+const novaContaInvestimento = new Banco.Investimento.ContaInvestimento('Angela', 1000);
+const novaContaSalario = new Banco.Investimento.ContaSalario('Tereza', 1000);
 
 console.log(pessoaFisica.numeroDaConta); // sem o getter, retorn undefined
 
