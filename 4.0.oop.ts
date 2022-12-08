@@ -92,18 +92,19 @@ namespace Banco {
     }
 }
 
-// namespaces aninhados
-namespace Banco {
-    export namespace Investimento {
-        export class ContaSalario extends Conta { }
-    }
-}
-
-namespace Banco {
-    export namespace Investimento {
-        export class ContaInvestimento extends Conta { }
-    }
-}
+// namespaces aninhados salvos em outros arquivos
+// 8.1.contaInvestimento.ts
+// namespace Banco {
+//     export namespace Investimento {
+//         export class ContaSalario extends Conta { }
+//     }
+// }
+// 8.2.contaSalario.ts
+// namespace Banco {
+//     export namespace Investimento {
+//         export class ContaInvestimento extends Conta { }
+//     }
+// }
 
 const pessoaFisica = new Banco.ContaPF(12345678900, "Thiago Adriano", 1000);
 const pessoaJuridica = new Banco.ContaPJ(12345678000177, "Thiago Adriano", 1000);
