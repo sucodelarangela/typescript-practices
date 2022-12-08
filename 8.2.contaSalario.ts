@@ -1,5 +1,7 @@
-namespace Banco {
-  export namespace Investimento {
-    export class ContaInvestimento extends Conta { }
-  }
-}
+import { Conta } from "./8.3.module_conta";
+
+// namespace Banco {
+// export namespace Investimento {
+export class ContaSalario extends Conta { }
+// }
+// }
