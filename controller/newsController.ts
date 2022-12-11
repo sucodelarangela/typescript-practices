@@ -6,7 +6,7 @@ class NewsController {
 
   // instanciando a classe NewsService
   constructor() {
-    this._service: new NewsService();
+    this._service = new NewsService();
   }
 
   // retorna listagem paginada
